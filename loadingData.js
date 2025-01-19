@@ -4,6 +4,10 @@ let coursesData = [];
 let currentPage = 1; 
 const coursesPerPage = 3; 
 
+const TUTORS_API_URL = `http://cat-facts-api.std-900.ist.mospolytech.ru/api/tutors?api_key=${API_KEY}`;
+let tutorsData = []; 
+
+
 async function loadCourses() {
     try {
         const response = await fetch(COURSES_API_URL);
@@ -70,8 +74,6 @@ function updateActivePage() {
     pageItems[currentPage - 1].classList.add('active'); 
 }
 
-window.onload = loadCourses;
-
 function showCourseDetails(courseId) {
     const course = coursesData.find(c => c.id === courseId);
     
@@ -87,3 +89,53 @@ function showCourseDetails(courseId) {
         console.error('Course not found:', courseId);
     }
 }
+
+async function loadTutors() {
+    try {
+        const response = await fetch(TUTORS_API_URL);
+        tutorsData = await response.json();
+        displayTutors();
+    } catch (error) {
+        console.error('Error loading tutors:', error);
+    }
+}
+
+function displayTutors() {
+    const tutorsContainer = document.getElementById('tutors-container');
+    tutorsContainer.innerHTML = ''; 
+
+    const tutorsToDisplay = tutorsData;
+
+    tutorsToDisplay.forEach(tutor => {
+        const tutorCard = document.createElement('div');
+        tutorCard.className = 'col-md-3 mb-6';
+        tutorCard.innerHTML = `
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">${tutor.name}</h5>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tutorModal" onclick="showTutorDetails(${tutor.id})">More details</button>
+                </div>
+            </div>
+        `;
+        tutorsContainer.appendChild(tutorCard);
+    });
+}
+
+function showTutorDetails(tutorId) {
+    const tutor = tutorsData.find(c => c.id === tutorId);
+    
+    if (tutor) {
+        document.getElementById('tutorName').innerText = tutor.name;
+        document.getElementById('tutorExperience').innerText = tutor.work_experience;
+        document.getElementById('tutorLangSpoken').innerText = tutor.languages_spoken;
+        document.getElementById('tutorLangOffered').innerText = tutor.languages_offered;
+        document.getElementById('tutorLangLevel').innerText = tutor.language_level;
+        document.getElementById('tutorPricePerHour').innerText = tutor.price_per_hour;
+    } else {
+        console.error('Tutor not found:', tutorId);
+    }
+}
+
+window.onload = async () => { 
+    await Promise.all([loadCourses(), loadTutors()]); 
+};
