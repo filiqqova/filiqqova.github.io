@@ -58,3 +58,21 @@ footer {
     text-align: center;
     margin-top: 30px; 
 }
+
+.pagination {
+    background-color: #ffffff; 
+}
+
+.pagination .page-link {
+    color: #007bff; 
+}
+
+.pagination .page-link:hover {
+    background-color: #e9ecef; 
+    color: #0056b3; 
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff; 
+    color: white; 
+}
