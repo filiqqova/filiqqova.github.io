@@ -64,11 +64,12 @@
         </div>  
         <nav id="pagination" class="mt-4"> 
             <ul class="pagination justify-content-center"> 
-                 
+            <!--Переключение между страницами--> 
             </ul> 
         </nav> 
     </div> 
     
+    <!--окно с доп информацие-->
     <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true"> 
         <div class="modal-dialog"> 
             <div class="modal-content"> 
@@ -76,7 +77,7 @@
                     <h5 class="modal-title" id="courseTitle"></h5> 
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
                 </div> 
-                <div class="modal-body"> 
+                <div class="modal-body" id="courseModalBody"> 
                     <p id="courseDescription"></p> 
                     <p><strong>Teacher:</strong> <span id="courseTeacher"></span></p> 
                     <p><strong>Level:</strong> <span id="courseLevel"></span></p> 
@@ -87,7 +88,44 @@
             </div> 
         </div> 
     </div>
+
     
+    <!-- Фильтрация курсов -->
+
+    <div class="container">
+        <h2>Search Courses</h2>
+        <form class="row">
+            <div class="col-md-8">
+                <input type="text" id="course-name" class="form-control" placeholder="Input course name">
+            </div>
+            <div class="col-md-3">
+                <select id="course-level" class="form-select">
+                    <option value="">All Levels</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                </select>
+            </div>
+        </form>
+        <div class="mt-4">
+            <table class="table table-bordered" id="courses-table">
+                <thead>
+                    <tr>
+                        <th>Name of Course</th>
+                        <th>Level</th>
+                        <th>info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Загрузка данных с апи -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+
+    <!--Загрузка тьюторов-->
     <div id="tutors" class="container"> 
         <h2>Available Tutors</h2> 
         <div id="tutors-container" class="row"> 
@@ -95,6 +133,7 @@
         </div>  
     </div> 
     
+    <!--окно доп информации-->
     <div class="modal fade" id="tutorModal" tabindex="-1" aria-labelledby="tutorModalLabel" aria-hidden="true"> 
         <div class="modal-dialog"> 
             <div class="modal-content"> 
@@ -102,7 +141,7 @@
                     <h5 class="modal-title" id="tutorTitle"></h5> 
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
                 </div> 
-                <div class="modal-body">  
+                <div class="modal-body" id="tutorModalBody">  
                     <p><strong>Teacher:</strong> <span id="tutorName"></span></p> 
                     <p><strong>Work Experience:</strong> <span id="tutorExperience"></span></p>
                     <p><strong>Languages spoken:</strong> <span id="tutorLangSpoken"></span></p> 
@@ -114,14 +153,94 @@
         </div> 
     </div>
     
+
+
+    <!-- ФИльтрация тьюторов -->
+        <div class="container">
+            <h2>Search Tutors</h2>
+            <form class="row" id="search-tutors-form">
+                <div class="col-md-4">
+                    <label for="tutor-name" class="form-label">Tutor Name</label>
+                    <input type="text" id="tutor-name" class="form-control" placeholder="Search by tutor name">
+                </div>
+                <div class="col-md-4">
+                    <label for="language-level" class="form-label">Language Level</label>
+                    <select id="language-level" class="form-select">
+                        <option value="">All Levels</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="language-offered" class="form-label">Language</label>
+                    <select id="language-offered" class="form-select">
+                        <option value="">All Languages</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="French">French</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="English">English</option>
+                        <option value="German">German</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="tutor-experience" class="form-label">Work Experience</label>
+                    <input type="text" id="tutor-experience" class="form-control" placeholder="input a number">
+                </div>
+        </form>
+
+        <!-- Таблица тьюторов -->
+        <div class="mt-4">
+            <table class="table table-bordered" id="tutors-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Language Level</th>
+                        <th>Languages Spoken</th>
+                        <th>Work Experience (in years)</th>
+                        <th>info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Загрузка данных с апи -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!--форма заявки для курсов-->
+    <div id="courseRequestForm" style="display: none;">
+        <h3>Заявка на курс</h3>
+        <form id="courseForm">
+            <div>
+                <label for="courseName">Name of course:</label>
+                <input type="text" id="courseName" value="Не выбрано" readonly>
+            </div>
+            <button type="submit">Submit an application for a course</button>
+        </form>
+    </div>
     
- 
+    <!--форма заявки для тьюторов-->
+    <div id="tutorRequestForm" style="display: none;">
+        <h3>Request for session</h3>
+        <form id="tutorForm">
+            <div>
+                <label for="tutorName">Name of tutor:</label>
+                <input type="text" id="tutorsName" value="Не выбрано" readonly>
+            </div>
+            <button type="submit">Submit a request for a teacher</button>
+        </form>
+    </div>
+
 </main>
 
 <footer id="contact">
     <p>+7-000-000-00-00</p>
-    <p><a href="https://vk.com/moscowpolytech">VK</a></p>
-    <p><a href="https://t.me/mospolytech">Telegram</a></p>
+    <p><a href="https://vk.com/moscowpolytech">VK</a> | <a href="https://t.me/mospolytech">Telegram</a></p>
+    
 </footer>
 
 
