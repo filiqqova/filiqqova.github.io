@@ -80,12 +80,12 @@ footer {
 
 #map {
     width: 75%; 
-    height: 900px; 
+    height: 700px; 
 }
 
 
 #info {
-    width: 30%; /* Ширина для блока информации */
+    width: 30%; 
     padding: 10px;
     border: 1px solid #ccc;
 }
@@ -109,3 +109,10 @@ footer {
     text-align: center;
 }
 
+#filter{
+    text-align: right;
+}
+
+#info p{
+    font-size: 15px;
+}
