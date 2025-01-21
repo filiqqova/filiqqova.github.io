@@ -76,3 +76,36 @@ footer {
     background-color: #007bff; 
     color: white; 
 }
+
+
+#map {
+    width: 75%; 
+    height: 900px; 
+}
+
+
+#info {
+    width: 30%; /* Ширина для блока информации */
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.course-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #000000;
+    cursor: pointer;
+}
+
+.course-item.highlight {
+    background-color: #e0faee; 
+}
+
+.container {
+    display: flex; 
+
+}
+.center{
+    text-align: center;
+}
+
