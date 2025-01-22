@@ -100,6 +100,7 @@ function showCourseDetails(courseId) {
         const addButton = document.createElement('button');
         addButton.innerText = 'Add';
         addButton.id = 'addButton'; 
+        addButton.className = 'btn btn-primary';
         addButton.onclick = () => openRequestForm(course.name, course.teacher,course.course_fee_per_hour, course.total_length);
 
 
@@ -163,6 +164,7 @@ function showTutorDetails(tutorId) {
         const addButton = document.createElement('button');
         addButton.innerText = 'Add';
         addButton.id = 'addButton';
+        addButton.className = 'btn btn-primary';
         addButton.onclick = () => openRequestForm("", tutor.name, tutor.price_per_hour, "");
 
         const tutorModalBody = document.getElementById('tutorModalBody'); 
@@ -318,6 +320,5 @@ function openRequestForm(courseName="",tutorsName = "",totalCost = "",duration =
     document.getElementById('totalCost').value = totalCost;
     document.getElementById('duration').value = duration;
 }
-
 
 
