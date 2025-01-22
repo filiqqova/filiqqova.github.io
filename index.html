@@ -125,18 +125,6 @@
         </div>
     </div>
     
-    <!--форма заявки для курсов-->
-    <div id="courseRequestForm" style="display: none;">
-        <h3>Request for session</h3>
-        <form id="courseForm">
-            <div>
-                <label for="courseName">Name of course:</label>
-                <input type="text" id="courseName" value="Не выбрано" readonly>
-            </div>
-            <button type="submit">Submit an application for a course</button>
-        </form>
-    </div>
-
 
     <!--Загрузка тьюторов-->
     <div id="tutors" class="container"> 
@@ -223,23 +211,69 @@
         </div>
     </div>
 
-
-    
-    
-    <!--форма заявки для тьюторов-->
-    <div id="tutorRequestForm" style="display: none;">
-        <h3>Request for session</h3>
-        <form id="tutorForm">
-            <div>
-                <label for="tutorName">Name of tutor:</label>
-                <input type="text" id="tutorsName" value="Не выбрано" readonly>
-            </div>
-            <button type="submit">Submit a request for a teacher</button>
-        </form>
-    </div>
-
-    
-
+    <!-- Кнопка "Подать заявку" --> 
+    <div class="container mt-4"> 
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#requestForm">Request a session</button> 
+    </div> 
+ 
+    <!-- Модальное окно для подачи заявки --> 
+    <div class="modal fade" id="requestForm" tabindex="-1" aria-labelledby="requestFormLabel" aria-hidden="true"> 
+        <div class="modal-dialog modal-lg"> 
+            <div class="modal-content"> 
+                <div class="modal-header"> 
+                    <h5 id="applicationModalLabel" class="modal-title">Заявка на курс</h5> 
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
+                </div> 
+                <div class="modal-body"> 
+                    <form id="applicationForm"> 
+                        <div class="mb-3"> 
+                            <label for="courseName" class="form-label">Course name</label> 
+                            <input type="text" id="courseName" class="form-control" readonly /> 
+                        </div> 
+ 
+                        <div class="mb-3"> 
+                            <label for="tutorsName" class="form-label">Name of tutor</label> 
+                            <input type="text" id="tutorsName" class="form-control" readonly /> 
+                        </div> 
+ 
+                        <div class="mb-3"> 
+                            <label for="startDate" class="form-label">Course start date</label> 
+                            <input type="date" id="startDate" class="form-control" required /> 
+                        </div> 
+ 
+                        <div class="mb-3"> 
+                            <label for="classTime" class="form-label">Class time</label> 
+                            <select id="classTime" class="form-select" required>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                            </select> 
+                        </div> 
+ 
+                        <div class="mb-3"> 
+                            <label for="duration" class="form-label">Course duration (in weeks)</label> 
+                            <input type="text" id="duration" class="form-control" readonly /> 
+                        </div> 
+ 
+                        <div class="mb-3"> 
+                            <label for="studentsNumber" class="form-label">Number of students in the group</label> 
+                            <input type="number" id="studentsNumber" class="form-control" min="1" max="20" readonly /> 
+                        </div> 
+ 
+                        <div class="mb-3"> 
+                            <label for="totalCost" class="form-label">Total cost</label> 
+                            <input type="text" id="totalCost" class="form-control" readonly /> 
+                        </div> 
+ 
+                    </form> 
+                </div> 
+                <div class="modal-footer"> 
+                    <button type="button" id="submitApplication" class="btn btn-primary">Submit</button>  
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>  
+                </div> 
+            </div> 
+        </div> 
+    </div> 
 </main>
 
 <footer id="contact">
