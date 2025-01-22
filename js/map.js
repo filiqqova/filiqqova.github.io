@@ -50,7 +50,7 @@ function createMap()
     //добавление меток
     addPlacemark();
 
-
+    //фильтрация
     addFilter();
 }
 
@@ -71,11 +71,12 @@ function addPlacemark() {
         //фукнция для подсветки и центирования при нажитии на определенный ресурс
         placemark.events.add('click', function () {
             highlightCourse(course.name);
-            mapCourses.setCenter(course.coordinates, 12); 
+            mapCourses.setCenter(course.coordinates, 17); 
+            
         });
         
 
-        placemarks.push({ placemark, type: course.category }); // Сохраняем метку и ее тип
+        placemarks.push({ placemark, type: course.category }); //сохраняем метку и ее тип
 
         mapCourses.geoObjects.add(placemark);
 
@@ -99,23 +100,27 @@ function addCourseToList(course) {
 
     courseItem.onclick = function () {
         highlightCourse(course.name);
-        mapCourses.setCenter(course.coordinates, 15); 
+        mapCourses.setCenter(course.coordinates, 17); 
     };
 
     courseList.appendChild(courseItem);
 }
 
+//хранение текущего выделенного курса
+let highlightedCourse = null;
+
 //функция для подсветки выбранного ресурса
 function highlightCourse(name) { 
     let items = document.querySelectorAll('.course-item'); 
-     
+    
     items.forEach(function(item) { 
         item.classList.remove('highlight'); 
 
         if (item.querySelector('h4').innerText === name) { 
             item.classList.add('highlight'); 
+            highlightedCourse = name; //сохраняем выделенный курс
 
-            mapCourses.setCenter(courses.find(r => r.name === name).coordinates, 15);  
+            mapCourses.setCenter(courses.find(r => r.name === name).coordinates, 17);  
             mapCourses.geoObjects.each(function(placemark) { 
                 if (placemark.properties.get('balloonContentHeader') === name) { 
                     placemark.balloon.open();  
@@ -125,8 +130,7 @@ function highlightCourse(name) {
             }); 
         } 
     }); 
-} 
-
+}
 
 //функция добавления фильтра
 function addFilter() {
@@ -160,6 +164,7 @@ function addFilter() {
 //функция фильтрации курсов
 function filterCourses(selectedCategory) {
     mapCourses.geoObjects.removeAll(); 
+    highlightedCourse = null; //сбрасываем выделенный курс при фильтрации
 
     courses.forEach(course => {
         if (selectedCategory === "All" || course.category === selectedCategory) {
@@ -174,12 +179,23 @@ function filterCourses(selectedCategory) {
 
             placemark.events.add('click', function () {
                 highlightCourse(course.name);
-                mapCourses.setCenter(course.coordinates, 12);
+                mapCourses.setCenter(course.coordinates, 17);
             });
 
             mapCourses.geoObjects.add(placemark);
         }
     });
 }
+
+document.addEventListener('click', function(event) {
+    let courseList = document.getElementById('info');
+    if (!courseList.contains(event.target)) {
+        //если кликнули вне списка, убираем подсветку
+        highlightedCourse = null;
+        document.querySelectorAll('.course-item').forEach(item => {
+            item.classList.remove('highlight');
+        });
+    }
+});
 
 ymaps.ready(createMap); 
