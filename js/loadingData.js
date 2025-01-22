@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
             row.innerHTML = `
                 <td>${tutor.name}</td>
                 <td>${tutor.language_level}</td>
-                <td>${tutor.languages_spoken.join(', ')}</td>
+                <td>${tutor.languages_offered.join(', ')}</td>
                 <td>${tutor.work_experience}</td>
                 <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tutorModal" onclick="showTutorDetails(${tutor.id})">More details</button></td>
             `;
