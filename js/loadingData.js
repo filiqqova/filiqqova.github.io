@@ -100,7 +100,8 @@ function showCourseDetails(courseId) {
         const addButton = document.createElement('button');
         addButton.innerText = 'Add';
         addButton.id = 'addButton'; 
-        addButton.onclick = () => openCourseRequestForm(course.name);
+        addButton.onclick = () => openRequestForm(course.name, course.teacher,course.course_fee_per_hour, course.total_length);
+
 
         const courseModalBody = document.getElementById('courseModalBody'); 
         courseModalBody.appendChild(addButton);
@@ -162,7 +163,7 @@ function showTutorDetails(tutorId) {
         const addButton = document.createElement('button');
         addButton.innerText = 'Add';
         addButton.id = 'addButton';
-        addButton.onclick = () => openTutorRequestForm(tutor.name);
+        addButton.onclick = () => openRequestForm("", tutor.name, tutor.price_per_hour, "");
 
         const tutorModalBody = document.getElementById('tutorModalBody'); 
         tutorModalBody.appendChild(addButton);
@@ -171,19 +172,6 @@ function showTutorDetails(tutorId) {
     }
 }
 
-//функция для открытия формы по курсам
-function openCourseRequestForm(courseName = "") {
-    document.getElementById('courseName').value = courseName;
-    document.getElementById('courseRequestForm').style.display = 'block';
-    document.getElementById('tutorRequestForm').style.display = 'none'; 
-}
-
-//функция для открытия формы по тьюторам
-function openTutorRequestForm(tutorsName = "") {
-    document.getElementById('tutorsName').value = tutorsName;
-    document.getElementById('tutorRequestForm').style.display = 'block';
-    document.getElementById('courseRequestForm').style.display = 'none'; 
-}
 
 loadCourses();
 loadTutors();
@@ -320,5 +308,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetchTutors();
 });
+
+
+
+//функция для открытия формы
+function openRequestForm(courseName="",tutorsName = "",totalCost = "",duration = "") {
+    document.getElementById('courseName').value = courseName;
+    document.getElementById('tutorsName').value = tutorsName;
+    document.getElementById('totalCost').value = totalCost;
+    document.getElementById('duration').value = duration;
+}
+
 
 
